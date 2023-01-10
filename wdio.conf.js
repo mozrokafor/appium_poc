@@ -1,6 +1,6 @@
 const path = require('path')
 
-exports.config = {
+exports.config = {    
     //
     // ====================
     // Runner Configuration
@@ -80,10 +80,9 @@ exports.config = {
     // - @wdio/sumologic-reporter
     // - @wdio/cli, @wdio/config, @wdio/utils
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    // logLevels: {
-    //     webdriver: 'info',
-    //     '@wdio/appium-service': 'info'
-    // },
+    logLevels: {
+        '@wdio/appium-service': 'info'
+    },
     //
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
@@ -109,7 +108,20 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['appium'],
+    services: ['appium', 'browserstack', {
+        forcedStop: true,
+        app: path.join(process.cwd(), "app/android/mozillavpn-arm64-v8a-release.apk")
+    }],
+
+    // 
+    // BrowserStack server
+    user: process.env.BROWSERSTACK_USERNAME,
+    key: process.env.BROWSERSTACK_ACCESS_KEY,
+    waitforTimeout: 10000,
+    coloredLogs: true,
+    screenshotPath: './errorShots/',        
+    connectionRetryTimeout: 90000,
+    connectionRetryCount: 3,
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
