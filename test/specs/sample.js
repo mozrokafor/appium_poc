@@ -10,12 +10,11 @@ describe('Android Sample tests', () => {
         // click on get help
         await getHelpBtn.waitForDisplayed({ timeout: 30_000 })
         await getHelpBtn.click()
-        await new Promise(resolve => setTimeout(resolve, 5000));
 
         // click on contact support
         await contactSupportBtn.waitForDisplayed({ timeout: 30_000 })
         await contactSupportBtn.click()
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        await new Promise(resolve => setTimeout(resolve, 2_000));
 
         // verify 
         assert.notEqual(contactSupportTitle, null)
